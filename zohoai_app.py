@@ -272,15 +272,14 @@ def fmt_date(dt: datetime) -> str:
     return dt.strftime("%b %d")
 
 def clean_text(text: str) -> str:
-    """Strip markdown bold (**) and heading (##) markers from AI responses."""
     import re
-    text = re.sub(r'\*\*(.*?)\*\*', r'\1', text)   # **bold** -> plain
-    text = re.sub(r'#+\s*', '', text)               # ## Heading -> plain
+    text = re.sub(r'\*\*(.*?)\*\*', r'\1', text)   
+    text = re.sub(r'#+\s*', '', text)              
     return text
 
 chatbot = load_chatbot()
 
-# sidebar for chat histroy management
+# sidebar for chat history management
 with st.sidebar:
     st.markdown(
         "<p style='font-size:12px;font-weight:600;color:#5a7aaa;"
