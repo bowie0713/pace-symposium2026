@@ -2,7 +2,6 @@ import os
 import time
 from dataclasses import dataclass
 from typing import Any, Optional
-
 import requests
 from langchain_core.language_models.llms import LLM
 
@@ -19,11 +18,11 @@ class AdaptivePollingConfig:
     avoiding the fixed tight loop that commonly triggers 429 responses.
     """
 
-    initial_interval_seconds: float = 0.3
+    initial_interval_seconds: float = 1
     backoff_factor: float = 1.5
-    max_interval_seconds: float = 5.0
-    max_retries: int = 5
-    request_timeout_seconds: int = 30
+    max_interval_seconds: float = 25
+    max_retries: int = 50
+    request_timeout_seconds: int = 60
 
     @classmethod
     def from_env(cls) -> "AdaptivePollingConfig":
@@ -31,10 +30,10 @@ class AdaptivePollingConfig:
         # dial can be overridden from .env. The defaults match the guide, and the
         # guards below stop obviously bad values from breaking the polling logic.
         initial_ms = float(os.getenv("LLMSANDBOX_POLL_INITIAL_MS", "300"))
-        max_ms = float(os.getenv("LLMSANDBOX_POLL_MAX_MS", "5000"))
+        max_ms = float(os.getenv("LLMSANDBOX_POLL_MAX_MS", "25000"))
         backoff_factor = float(os.getenv("LLMSANDBOX_POLL_BACKOFF_FACTOR", "1.5"))
-        max_retries = int(os.getenv("LLMSANDBOX_POLL_MAX_RETRIES", "5"))
-        request_timeout_seconds = int(os.getenv("LLMSANDBOX_REQUEST_TIMEOUT_SECONDS", "30"))
+        max_retries = int(os.getenv("LLMSANDBOX_POLL_MAX_RETRIES", "50"))
+        request_timeout_seconds = int(os.getenv("LLMSANDBOX_REQUEST_TIMEOUT_SECONDS", "60"))
 
         return cls(
             initial_interval_seconds=max(0.1, initial_ms / 1000),
