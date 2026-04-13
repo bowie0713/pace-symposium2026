@@ -30,6 +30,7 @@ Thumbs.db
 *.xlsx
 *.csv
 *.pdf
+*.json
 
 # Agent and local run artifacts
 .copilot/
