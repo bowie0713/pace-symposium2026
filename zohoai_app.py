@@ -5,7 +5,7 @@ from datetime import datetime
 from pathlib import Path
 from mongodb_RAG import ZohoTicket
 
-HISTORY_FILE = Path("/Users/guiallovido/Documents/GitHub/pace-symposium2026/Local Chat Logs/history.json")
+HISTORY_FILE = Path("/Users/bowiechuang/Documents/GitHub/pace-symposium2026/Local_Chat_Logs/history.json")
 
 
 def load_history() -> dict:
